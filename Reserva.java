@@ -34,7 +34,7 @@ public class Reserva {
         this.numeroTarjeta = 0;
         this.cuotas = 0;
         this.claseVuelo = false;
-        this.numeroAsiento = 0;
+        this.numeroAsiento = "";
         this.cantidadMaletas = 0;
     }
 

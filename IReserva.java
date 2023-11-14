@@ -1,3 +1,6 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public interface IReserva {
 
     void login(String username, String password);
@@ -14,12 +17,12 @@ public interface IReserva {
 
     String itinerario();
 
-    void guardarReservacion();
+    void guardarReservacion() throws Exception;
 
-    void leerReservacion();
+    void leerReservacion() throws FileNotFoundException, IOException;
 
-    void guardarUsuario();
+    void guardarUsuario() throws Exception;
 
-    void leerUsuario();
+    void leerUsuario()  throws FileNotFoundException, IOException;
 
 }

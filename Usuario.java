@@ -62,10 +62,10 @@ public class Usuario {
      */
     public String getTipoPlanUser() {
         String c = "";
-        if (tipoPlan) { // true -> VIP
-            c = "VIP";
+        if (tipoPlan) { // true -> premium
+            c = "premium";
         } else {// false -> GRATUITO
-            c = "Gratuito";
+            c = "gratuito";
         }
         return c;
     }
