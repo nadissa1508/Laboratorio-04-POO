@@ -9,11 +9,12 @@ public class Principal {
         int opcion = 0;
         String opUser = "";
 
-        while (opcion != 4) {
+        while (opcion != 5) {
             System.out.println("\n***************************");
             System.out.println("\nReservaciones Kayak!");
             System.out.println("\n***************************");
-            System.out.println("\nOpciones: \n1.Crear una reservación \n2.Confirmar mi reservación \n3.Configurar mi perfil \n4.Regresar");
+            System.out.println(
+                    "\nOpciones: \n1.Crear una reservación \n2.Confirmar mi reservación \n3.Configurar mi perfil \n4.Ver mi reservación \n5.Regresar");
             System.out.println("\nSeleccione su opción: ");
             opUser = teclado.nextLine();
 
@@ -23,13 +24,14 @@ public class Principal {
                 System.out.println("\nError, ingrese un número");
             }
 
-            if (opcion < 1 || opcion > 4) {
+            if (opcion < 1 || opcion > 5) {
                 System.out.println("\nError, ingrese una opción del menú");
             } else {
                 if (opcion == 1) {
+
                     String fechaVuelo = "", tipoVuelo = "", cantidadBoletos = "", aerolinea = "";
                     int cantBoletos = 0, tipVueloo = 0;
-                    boolean tipVuelo = false;
+                    boolean tipVuelo = false, flag = true;
 
                     System.out.println("\n\n******************");
                     System.out.println("\nCREAR UNA RESERVACION");
@@ -45,12 +47,13 @@ public class Principal {
                         tipVueloo = Integer.parseInt(tipoVuelo);
                     } catch (Exception e) {
                         System.out.println("\nError, ingrese un número");
-                        return;
+                        flag = false;
+
                     }
 
-                    if (tipVueloo != 1 || tipVueloo != 2) {
+                    if (tipVueloo != 1 && tipVueloo != 2) {
                         System.out.println("\nError, opción incorrecta para el tipo de vuelo");
-                        return;
+                        flag = false;
                     }
 
                     if (tipVueloo == 1) {
@@ -66,22 +69,27 @@ public class Principal {
                         cantBoletos = Integer.parseInt(cantidadBoletos);
                     } catch (Exception e) {
                         System.out.println("\nError, ingrese un número");
-                        return;
+                        flag = false;
                     }
 
                     if (cantBoletos <= 0) {
                         System.out.println("\nError, cantidad de boletos invalida");
-                        return;
+                        flag = false;
                     }
 
                     System.out.println("\nAerolinea con la que desea viajar: ");
                     aerolinea = teclado.nextLine();
 
-                    kayak.reservacion(fechaVuelo, tipVuelo, cantBoletos, aerolinea, username);
+                    if (flag) {
+                        kayak.reservacion(fechaVuelo, tipVuelo, cantBoletos, aerolinea, username);
+                    } else {
+                        System.out.println("\nSe ingresaron datos erroneos, intente de nuevo! ");
+                    }
 
                 } else if (opcion == 2) {
-
-                    String numeroTarjeta = "", cuotas = "", claseVuelo = "", numeroAsiento = "", cantidadMaletas = "", cod = "";
+                    boolean flag = true;
+                    String numeroTarjeta = "", cuotas = "", claseVuelo = "", numeroAsiento = "", cantidadMaletas = "",
+                            cod = "";
                     int cuotas2 = 0, cantidadMaletas2 = 0;
 
                     System.out.println("\n\n******************");
@@ -105,12 +113,12 @@ public class Principal {
                             cantidadMaletas2 = Integer.parseInt(cantidadMaletas);
                         } catch (Exception e) {
                             System.out.println("\nError, ingrese un número");
-                            return;
+                            flag = false;
                         }
 
                         if (cantidadMaletas2 <= 0) {
                             System.out.println("\nError, cantidad de maletas invalida");
-                            return;
+                            flag = false;
                         }
 
                     } else if (tipoPlan.equals("gratuito")) {
@@ -122,34 +130,39 @@ public class Principal {
                             cuotas2 = Integer.parseInt(cuotas);
                         } catch (Exception e) {
                             System.out.println("\nError, ingrese un número");
-                            return;
+                            flag = false;
                         }
 
                         if (cuotas2 <= 0) {
                             System.out.println("\nError, cantidad de cuotas invalida");
-                            return;
+                            flag = false;
                         }
 
                         System.out.println("\nClase para el vuelo, Coach o Primera clase: ");
                         claseVuelo = teclado.nextLine();
 
-                        if (!claseVuelo.equalsIgnoreCase("coach") || !claseVuelo.equalsIgnoreCase("primera clase")) {
+                        if (!claseVuelo.equalsIgnoreCase("coach") && !claseVuelo.equalsIgnoreCase("primera clase")) {
                             System.out.println("\nError, se ingreso una clase de vuelo invalida!");
-                            return;
+                            flag = false;
                         }
 
-                        numeroAsiento = "Se asignará en el aeropuerto";
+                        numeroAsiento = "Se asignara en el aeropuerto";
                         cantidadMaletas2 = 1;
                         System.out.println("\nSi tiene algún código de descuento, ingreselo, sino ingrese \"No\": ");
                         cod = teclado.nextLine();
                     }
 
-                    kayak.confirmacion(numeroTarjeta, cuotas2, claseVuelo, numeroAsiento, cantidadMaletas2);
+                    if (flag) {
+                        kayak.confirmacion(numeroTarjeta, cuotas2, claseVuelo, numeroAsiento, cantidadMaletas2);
+                    } else {
+                        System.out.println("\nSe ingresaron datos erroneos, intente de nuevo! ");
+                    }
 
                 } else if (opcion == 3) {
                     String op1 = "";
                     int op_1 = 0;
-                    while (op_1 != 3) {
+
+                    do {
                         System.out.println("\n\n******************");
                         System.out.println("\nCONFIRMAR MI PERFIL");
                         System.out.println("\n******************");
@@ -168,15 +181,18 @@ public class Principal {
                         } else {
                             if (op_1 == 1) {
                                 kayak.cambiarTipoUsuario();
-                            } else {
+                            } else if (op_1 == 2) {
                                 String nuevaPassword = "";
                                 System.out.println("\nIngrese su nueva contraseña: ");
                                 nuevaPassword = teclado.nextLine();
                                 kayak.cambiarPassword(nuevaPassword);
                             }
                         }
-                    }
+                    } while (op_1 != 3);
 
+                } else if (opcion == 4) {
+                    System.out.println(kayak.imprimirReserva());
+                    System.out.println(kayak.itinerario());
                 }
 
             }
@@ -225,13 +241,7 @@ public class Principal {
                     System.out.println("\nEscriba con letras el tipo de plan que desea, premium o gratuito: ");
                     tipoPlan2 = teclado.nextLine();
 
-                    if (!tipoPlan2.equalsIgnoreCase("premium") || !tipoPlan2.equalsIgnoreCase("gratuito")) {
-                        System.out.println("\nError, se ingreso un plan invalido!");
-                        return;
-                    }
-
-                    tipoPlan = tipoPlan2.toLowerCase();
-                    kayak.registroUsuario(username, password, tipoPlan2);
+                    kayak.registroUsuario(username, password, tipoPlan2.toLowerCase());
 
                 } else if (opcion == 2) {
                     String username = "", password = "";
@@ -245,11 +255,29 @@ public class Principal {
                     System.out.println("\nIngrese su contraseña: ");
                     password = teclado.nextLine();
 
-                    kayak.login(username, password);
-                    menu2(kayak, teclado, username);
+                    Usuario userTemp = kayak.login(username, password);
+                    if (userTemp != null) {
+                        tipoPlan = userTemp.getTipoPlanUser();
+                        menu2(kayak, teclado, username);
+                    }
+
+                    opcion = 0;
 
                 } else if (opcion == 3) {
-                    // codigo que podria ser de utilidad al cerrar el programa
+                    try {
+                        kayak.guardarUsuario();
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                        System.out.println("ERROR AL GUARDAR CSV USUARIOS");
+                    }
+                    try {
+                        kayak.guardarReservacion();
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                        System.out.println("ERROR AL GUARDAR CSV RESERVAS");
+                    }
                 }
 
             }

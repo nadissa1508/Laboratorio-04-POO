@@ -3,7 +3,7 @@ import java.io.IOException;
 
 public interface IReserva {
 
-    void login(String username, String password);
+    Usuario login(String username, String password);
 
     void registroUsuario(String username, String password, String tipo);
 

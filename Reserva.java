@@ -31,7 +31,7 @@ public class Reserva {
         this.cantidadBoletos = 0;
         this.aerolinea = "";
         this.username = "";
-        this.numeroTarjeta = 0;
+        this.numeroTarjeta = 0L;
         this.cuotas = 0;
         this.claseVuelo = false;
         this.numeroAsiento = "";

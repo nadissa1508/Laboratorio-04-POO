@@ -45,20 +45,26 @@ public class ReservacionesKayak implements IReserva {
 
     }
 
-    public void login(String username, String password) {
-        if (usuarios != null) {
+    public Usuario login(String username, String password) {
+        Usuario newUser = null;
+        if (usuarios.size() > 0) {
             for (int x = 0; x < usuarios.size(); x++) {
                 if ((username.equals(usuarios.get(x).getUsername()))
                         && (password.equals(usuarios.get(x).getPassword()))) {
                     indexUser = x;
                     System.out.println("\n\nSesion iniciada correctamente!");
+                    newUser = new Usuario(username, password, usuarios.get(x).getTipoPlan());
                 } else {
                     System.out.println("\n\nCredenciales incorrectas!");
+
                 }
             }
         } else {
             System.out.println("\n\nDebe registrarse para iniciar sesión!");
+
         }
+
+        return newUser;
 
     }
 
@@ -87,20 +93,46 @@ public class ReservacionesKayak implements IReserva {
     }
 
     public void registroUsuario(String username, String password, String tipo) {
+        boolean flag = false;
+        if (!tipo.equalsIgnoreCase("premium") && !tipo.equalsIgnoreCase("gratuito")) {
+            System.out.println("\nError, se ingreso un plan invalido!");
+            flag = false;
+            return;
+        } else {
+            flag = true;
+        }
+
         if ((username.equals("")) || (password.equals("")) || (tipo.equals(""))) {
             System.out.println("\nCampo vacío!");
+            flag = false;
             return;
-        } else if (validarUsername(username)) {
-            System.out.println("\nEse nombre de usuario ya se esta utilizando, ingrese uno diferente.");
-            return;
+        } else {
+            flag = true;
         }
-        usuarios.add(new Usuario(username, password, setTipoPlan(tipo)));
-        System.out.println("\nCuenta creada con éxito!");
+
+        if (validarUsername(username)) {
+            System.out.println("\nEse nombre de usuario ya se esta utilizando, ingrese uno diferente.");
+            flag = false;
+            return;
+        } else {
+            flag = true;
+        }
+        if (flag) {
+            usuarios.add(new Usuario(username, password, setTipoPlan(tipo)));
+            System.out.println("\nCuenta creada con éxito!");
+        }
+
     }
 
     public void cambiarPassword(String nuevaPassword) {
-        usuarios.get(indexUser).setPassword(nuevaPassword);
-        System.out.println("\n\nContraseña actualizada correctamente!");
+        if (!nuevaPassword.equals("")) {
+            usuarios.get(indexUser).setPassword(nuevaPassword);
+            System.out.println("\n\nContraseña actualizada correctamente!");
+        } else {
+            System.out.println("\nError, campo vacío!");
+            return;
+        }
+
     }
 
     public void cambiarTipoUsuario() {
@@ -120,7 +152,7 @@ public class ReservacionesKayak implements IReserva {
         }
         reservas.add(new Reserva(fechaVuelo, tipoVuelo, cantidadBoletos, aerolinea, username, 0, 0, false, "", 0));
         System.out.println("\n\nReserva creada con éxito!");
-        imprimirReserva();
+        System.out.println(imprimirReserva());
     }
 
     public int encontrarReserva(String username) {
@@ -149,14 +181,13 @@ public class ReservacionesKayak implements IReserva {
             System.out.println("\nCampo vacío!");
             return;
         }
-        reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername()))
-                .setNumeroTarjeta(Long.parseLong(numeroTarjeta));
+        reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername())).setNumeroTarjeta(Long.parseLong(numeroTarjeta));
         reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername())).setCuotas(cuotas);
         reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername())).setClaseVuelo(verClaseVuelo(claseVuelo));
         reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername())).setNumeroAsiento(numeroAsiento);
         reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername())).setCantidadMaletas(cantidadMaletas);
         System.out.println("\n\nReserva confirmada exitosamente!");
-        itinerario();
+        System.out.println(itinerario());
     }
 
     public String itinerario() {
@@ -168,20 +199,23 @@ public class ReservacionesKayak implements IReserva {
     }
 
     public void guardarReservacion() throws Exception {
-        archivoReservas.crearReservaCSV(reservas);
+        if (reservas.size() > 0)
+            archivoReservas.crearReservaCSV(reservas);
 
     }
 
     public void leerReservacion() throws FileNotFoundException, IOException {
-        usuarios = archivoUsuarios.leerUserCSV();
+        reservas = archivoReservas.leerReservaCSV();
     }
 
     public void guardarUsuario() throws Exception {
-        archivoUsuarios.crearUserCSV(usuarios);
+        if (usuarios.size() > 0)
+            archivoUsuarios.crearUserCSV(usuarios);
     }
 
-    public void leerUsuario() throws FileNotFoundException, IOException{
-        reservas = archivoReservas.leerReservaCSV();
+    public void leerUsuario() throws FileNotFoundException, IOException {
+        usuarios = archivoUsuarios.leerUserCSV();
+
     }
 
 }

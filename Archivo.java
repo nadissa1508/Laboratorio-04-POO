@@ -58,7 +58,8 @@ public class Archivo {
         for (int i = 0; i < reservas.size(); i++) {
             //solo si la reservacion ha sido confirmada, osea hay numero de tarjeta 
             //se guarda la reservacion en el csv
-            if (!String.valueOf(reservas.get(i).getNumeroTarjeta()).equals("")) {
+            System.out.println("que viene aca  " + reservas.get(i).getNumeroTarjeta());
+            if (reservas.get(i).getNumeroTarjeta() != 0L) {
                 linea = reservas.get(i).getFechaVuelo() + "," + reservas.get(i).isTipoVuelo()
                         + "," + reservas.get(i).getCantidadBoletos() + "," + reservas.get(i).getAerolinea()
                         + "," + reservas.get(i).getUsername() + "," + reservas.get(i).getNumeroTarjeta()
