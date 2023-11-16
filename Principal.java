@@ -2,7 +2,7 @@ import java.io.File;
 import java.util.Scanner;
 
 public class Principal {
-    private static String tipoPlan = "";
+    private static String tipoPlan = "", cod = "";
 
     public static void menu2(ReservacionesKayak kayak, Scanner teclado, String username) {
 
@@ -86,8 +86,7 @@ public class Principal {
 
                 } else if (opcion == 2) {
                     boolean flag = true;
-                    String numeroTarjeta = "", cuotas = "", claseVuelo = "", numeroAsiento = "", cantidadMaletas = "",
-                            cod = "";
+                    String numeroTarjeta = "", cuotas = "", claseVuelo = "", numeroAsiento = "", cantidadMaletas = "";
                     int cuotas2 = 0, cantidadMaletas2 = 0;
 
                     System.out.println("\n\n******************");
@@ -101,7 +100,7 @@ public class Principal {
 
                         cuotas2 = 1;
                         claseVuelo = "primera clase";
-                        
+
                         System.out.println("\nNumero de asiento: ");
                         numeroAsiento = teclado.nextLine();
 
@@ -190,8 +189,10 @@ public class Principal {
                     } while (op_1 != 3);
 
                 } else if (opcion == 4) {
-                    System.out.println(kayak.imprimirReserva());
                     System.out.println(kayak.itinerario());
+                    if (tipoPlan.equals("gratuito")) {
+                        System.out.println("Codigo descuento aplicado: " + cod);
+                    }
                 }
 
             }

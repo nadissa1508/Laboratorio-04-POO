@@ -198,7 +198,11 @@ public class ReservacionesKayak implements IReserva {
     }
 
     public String itinerario() {
-        return reservas.get(indexUser).toStringItinerario();
+        String cadena = "";
+       
+        cadena = reservas.get(indexUser).toStringReserva();
+         cadena += "\n" +reservas.get(indexUser).toStringItinerario();
+        return cadena;
     }
 
     public String imprimirReserva() {
