@@ -1,0 +1,3 @@
+fechaVuelo,tipoVuelo,cantidadBoletos,aerolinea,username,numeroTarjeta,cuotas,claseVuelo,numeroAsiento,cantidadMaletas
+15/08,false,3,delta,sarah,5050505505505,1,true,a23,2
+15/08/2023,true,10,american airlines,siona,4044404,2,true,Se asignara en el aeropuerto,1
