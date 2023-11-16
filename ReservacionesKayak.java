@@ -68,12 +68,14 @@ public class ReservacionesKayak implements IReserva {
      * si este proceso se realizo correctamente y asi permitir que el usuario vea el menu2 del sistema
      */
     public Usuario login(String username, String password) {
+        indexUser = -1;
         Usuario newUser = null;
         if (usuarios.size() > 0) {
             for (int x = 0; x < usuarios.size(); x++) {
                 if ((username.equals(usuarios.get(x).getUsername()))
                         && (password.equals(usuarios.get(x).getPassword()))) {
                     indexUser = x;
+                    flagReserva = false;
                     newUser = new Usuario(username, password, usuarios.get(x).getTipoPlan());
                     break;
                 } else {
