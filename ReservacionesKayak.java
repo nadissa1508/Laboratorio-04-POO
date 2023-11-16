@@ -8,9 +8,10 @@ public class ReservacionesKayak implements IReserva {
     private ArrayList<Reserva> reservas;
     private Archivo archivoUsuarios;
     private Archivo archivoReservas;
-    private int indexUser = 0;
+    private int indexUser;
 
     public ReservacionesKayak() {
+        indexUser = -1;
         File file1 = new File("Usuarios.csv");
         File file2 = new File("Reservas.csv");
 
@@ -52,16 +53,21 @@ public class ReservacionesKayak implements IReserva {
                 if ((username.equals(usuarios.get(x).getUsername()))
                         && (password.equals(usuarios.get(x).getPassword()))) {
                     indexUser = x;
-                    System.out.println("\n\nSesion iniciada correctamente!");
                     newUser = new Usuario(username, password, usuarios.get(x).getTipoPlan());
+                    break;
                 } else {
-                    System.out.println("\n\nCredenciales incorrectas!");
 
                 }
             }
         } else {
             System.out.println("\n\nDebe registrarse para iniciar sesión!");
 
+        }
+
+        if (indexUser == -1) {
+            System.out.println("\n\nCredenciales incorrectas!");
+        } else {
+            System.out.println("\n\nSesion iniciada correctamente!");
         }
 
         return newUser;
@@ -181,7 +187,8 @@ public class ReservacionesKayak implements IReserva {
             System.out.println("\nCampo vacío!");
             return;
         }
-        reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername())).setNumeroTarjeta(Long.parseLong(numeroTarjeta));
+        reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername()))
+                .setNumeroTarjeta(Long.parseLong(numeroTarjeta));
         reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername())).setCuotas(cuotas);
         reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername())).setClaseVuelo(verClaseVuelo(claseVuelo));
         reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername())).setNumeroAsiento(numeroAsiento);

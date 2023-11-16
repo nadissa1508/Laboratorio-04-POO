@@ -1,2 +1,3 @@
 fechaVuelo,tipoVuelo,cantidadBoletos,aerolinea,username,numeroTarjeta,cuotas,claseVuelo,numeroAsiento,cantidadMaletas
-15/08/2023,true,5,american airlines,angie,5050505050505,5,false,Se asignara en el aeropuerto,1
+15/08,true,5,american airlines,angie,10101010101101,5,true,Se asignara en el aeropuerto,1
+15/20,false,3,delta,sarah,50505050505055,1,true,A23,3

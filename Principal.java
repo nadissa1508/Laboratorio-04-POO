@@ -2,7 +2,7 @@ import java.io.File;
 import java.util.Scanner;
 
 public class Principal {
-    static String tipoPlan = "";
+    private static String tipoPlan = "";
 
     public static void menu2(ReservacionesKayak kayak, Scanner teclado, String username) {
 
@@ -52,7 +52,6 @@ public class Principal {
                     }
 
                     if (tipVueloo != 1 && tipVueloo != 2) {
-                        System.out.println("\nError, opción incorrecta para el tipo de vuelo");
                         flag = false;
                     }
 
@@ -73,7 +72,6 @@ public class Principal {
                     }
 
                     if (cantBoletos <= 0) {
-                        System.out.println("\nError, cantidad de boletos invalida");
                         flag = false;
                     }
 
@@ -103,6 +101,7 @@ public class Principal {
 
                         cuotas2 = 1;
                         claseVuelo = "primera clase";
+                        
                         System.out.println("\nNumero de asiento: ");
                         numeroAsiento = teclado.nextLine();
 
@@ -117,7 +116,6 @@ public class Principal {
                         }
 
                         if (cantidadMaletas2 <= 0) {
-                            System.out.println("\nError, cantidad de maletas invalida");
                             flag = false;
                         }
 
@@ -134,7 +132,6 @@ public class Principal {
                         }
 
                         if (cuotas2 <= 0) {
-                            System.out.println("\nError, cantidad de cuotas invalida");
                             flag = false;
                         }
 
@@ -142,7 +139,6 @@ public class Principal {
                         claseVuelo = teclado.nextLine();
 
                         if (!claseVuelo.equalsIgnoreCase("coach") && !claseVuelo.equalsIgnoreCase("primera clase")) {
-                            System.out.println("\nError, se ingreso una clase de vuelo invalida!");
                             flag = false;
                         }
 
@@ -154,6 +150,9 @@ public class Principal {
 
                     if (flag) {
                         kayak.confirmacion(numeroTarjeta, cuotas2, claseVuelo, numeroAsiento, cantidadMaletas2);
+                        if (tipoPlan.equals("gratuito")) {
+                            System.out.println("Codigo descuento aplicado: " + cod);
+                        }
                     } else {
                         System.out.println("\nSe ingresaron datos erroneos, intente de nuevo! ");
                     }
@@ -260,8 +259,6 @@ public class Principal {
                         tipoPlan = userTemp.getTipoPlanUser();
                         menu2(kayak, teclado, username);
                     }
-
-                    opcion = 0;
 
                 } else if (opcion == 3) {
                     try {
