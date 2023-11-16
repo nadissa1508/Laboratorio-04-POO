@@ -1,9 +1,26 @@
+/**
+ * Universidad del Valle de Guatemala
+ * @author Angie Nadissa Vela López, 23764
+ * @description la funcion de esta clase es que el usuario pueda interactuar con el sistema
+ * @date creación 11/11/2023 última modificación 15/11/23
+ */
+
+
 import java.io.File;
 import java.util.Scanner;
 
 public class Principal {
     private static String tipoPlan = "", cod = "";
 
+    
+    /** 
+     * @param kayak
+     * @param teclado
+     * @param username
+     * 
+     * Menú secundario, donde se encuentran las opciones del programa relacionadas a la creación y confirmación
+     * de reservaciones. Ademas es posible cambiar contraseña y mejorar el plan del cliente
+     */
     public static void menu2(ReservacionesKayak kayak, Scanner teclado, String username) {
 
         int opcion = 0;
@@ -201,6 +218,11 @@ public class Principal {
 
     }
 
+    /*
+     * menu principal del sistema para que los usuarios puedan registrarse e iniciar sesion
+     * Los datos se guardan en el csv cada vez que se cierra el programa
+     */
+
     public static void menuPrincipal() {
         ReservacionesKayak kayak = new ReservacionesKayak();
         Scanner teclado = new Scanner(System.in);
@@ -257,7 +279,7 @@ public class Principal {
 
                     Usuario userTemp = kayak.login(username, password);
                     if (userTemp != null) {
-                        tipoPlan = userTemp.getTipoPlanUser();
+                        tipoPlan = userTemp.getTipoPlan();
                         menu2(kayak, teclado, username);
                     }
 
@@ -283,6 +305,10 @@ public class Principal {
 
     }
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         menuPrincipal();
     }

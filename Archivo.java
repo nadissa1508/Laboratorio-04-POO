@@ -1,3 +1,13 @@
+
+/**
+ * Universidad del Valle de Guatemala
+ * @author Angie Nadissa Vela López, 23764
+ * @description Clase para guardar información crucial para el funcionamiento del sistema en
+ * archivos CSV, tambien crea ArrayList de tipo Usuario y Reserva por medio de la lectura de
+ * estos mismos archivos, con el objetivo de lograr persistencia de datos
+ * @date creación 11/11/2023 última modificación 15/11/23
+ */
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,6 +24,11 @@ public class Archivo {
         archivo = new File(nombre);
     }
 
+    /**
+     * @param usuario
+     * @throws Exception
+     *                   Método para escribir el CSV de usuarios
+     */
     public void crearUserCSV(ArrayList<Usuario> usuario) throws Exception {
         PrintWriter escritor = new PrintWriter(archivo, "UTF-8");
         String linea = "username,password,tipoPlan";
@@ -27,6 +42,14 @@ public class Archivo {
         escritor.close();
     }
 
+    /**
+     * @return ArrayList<Usuario>
+     * @throws FileNotFoundException
+     * @throws IOException
+     *                               Función para leer la información del CSV de
+     *                               usuarios, llena y devuelve un ArrayList de tipo
+     *                               Usuario
+     */
     public ArrayList<Usuario> leerUserCSV() throws FileNotFoundException, IOException {
         String linea = "";
         ArrayList<Usuario> tempUsuarios = new ArrayList<>();
@@ -34,7 +57,7 @@ public class Archivo {
         BufferedReader lector = new BufferedReader(new FileReader("Usuarios.csv"));
         // lee y descarta la linea de los titulos
         lector.readLine();
-
+        // si la linea tiene datos se traen y guardan en el array temporal
         while ((linea = lector.readLine()) != null) {
             String elementos[] = linea.split(",");
             Usuario auxUser = new Usuario();
@@ -51,27 +74,34 @@ public class Archivo {
         return tempUsuarios;
     }
 
+    /**
+     * @param reservas
+     * @throws Exception
+     * Método para escribir el CSV de reservas
+     */
     public void crearReservaCSV(ArrayList<Reserva> reservas) throws Exception {
         PrintWriter escritor = new PrintWriter(archivo, "UTF-8");
         String linea = "fechaVuelo,tipoVuelo,cantidadBoletos,aerolinea,username,numeroTarjeta,cuotas,claseVuelo,numeroAsiento,cantidadMaletas";
         escritor.println(linea);
         for (int i = 0; i < reservas.size(); i++) {
-            //solo si la reservacion ha sido confirmada, osea hay numero de tarjeta 
-            //se guarda la reservacion en el csv
-            System.out.println("que viene aca  " + reservas.get(i).getNumeroTarjeta());
-            if (reservas.get(i).getNumeroTarjeta() != 0L) {
-                linea = reservas.get(i).getFechaVuelo() + "," + reservas.get(i).isTipoVuelo()
-                        + "," + reservas.get(i).getCantidadBoletos() + "," + reservas.get(i).getAerolinea()
-                        + "," + reservas.get(i).getUsername() + "," + reservas.get(i).getNumeroTarjeta()
-                        + "," + reservas.get(i).getCuotas() + "," + reservas.get(i).isClaseVuelo()
-                        + "," + reservas.get(i).getNumeroAsiento() + "," + reservas.get(i).getCantidadMaletas();
-                escritor.println(linea);
-            }
-
+            linea = reservas.get(i).getFechaVuelo() + "," + reservas.get(i).isTipoVuelo()
+                    + "," + reservas.get(i).getCantidadBoletos() + "," + reservas.get(i).getAerolinea()
+                    + "," + reservas.get(i).getUsername() + "," + reservas.get(i).getNumeroTarjeta()
+                    + "," + reservas.get(i).getCuotas() + "," + reservas.get(i).isClaseVuelo()
+                    + "," + reservas.get(i).getNumeroAsiento() + "," + reservas.get(i).getCantidadMaletas();
+            escritor.println(linea);
         }
         escritor.close();
     }
 
+    /**
+     * @return ArrayList<Reserva>
+     * @throws FileNotFoundException
+     * @throws IOException
+     * Función para leer la información del CSV de
+     * reservas, llena y devuelve un ArrayList de tipo
+     * Reserva
+     */
     public ArrayList<Reserva> leerReservaCSV() throws FileNotFoundException, IOException {
         String linea = "";
         ArrayList<Reserva> tempReservas = new ArrayList<>();

@@ -1,4 +1,11 @@
-public class Reserva {
+/**
+ * Universidad del Valle de Guatemala
+ * @author Angie Nadissa Vela López, 23764
+ * @description Clase que modela y guarda la información de una reservacion de vuelos
+ * @date creación 11/11/2023 última modificación 15/11/23
+ */
+
+ public class Reserva {
 
     private String fechaVuelo;
     private boolean tipoVuelo;
@@ -10,6 +17,8 @@ public class Reserva {
     private boolean claseVuelo;
     private String numeroAsiento;
     private int cantidadMaletas;
+ 
+    //constructores
 
     public Reserva(String fechaVuelo, boolean tipoVuelo, int cantidadBoletos, String aerolinea, String username,
             long numeroTarjeta, int cuotas, boolean claseVuelo, String numeroAsiento, int cantidadMaletas) {
@@ -38,6 +47,7 @@ public class Reserva {
         this.cantidadMaletas = 0;
     }
 
+    //getters y setters
     
     /** 
      * @return String
@@ -199,6 +209,11 @@ public class Reserva {
     }
 
     
+    /*
+     * Los métodos verTipoVuelo y verClaseVuelo devuelven valores String según lo que se guarde
+     * en cada variable, para cumplir con los requisitos requeridos por la interfaz
+     */
+
     /** 
      * @return String
      */
@@ -229,6 +244,7 @@ public class Reserva {
     
     /** 
      * @return String
+     * Funcion para imprimir informacion basica de la reservacion
      */
     public String toStringReserva() {
         String cadena = "";
@@ -243,6 +259,7 @@ public class Reserva {
     
     /** 
      * @return String
+     * Funcion para imprimir informacion de pago (confirmacion) de la reservacion
      */
     public String toStringItinerario() {
         String cadena = "";
