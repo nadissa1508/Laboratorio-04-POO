@@ -18,6 +18,7 @@ public class ReservacionesKayak implements IReserva {
     private Archivo archivoUsuarios;//sirve para crear CSV Usuarios
     private Archivo archivoReservas;//sirve para crear CSV Reservas
     private int indexUser;
+    private boolean flagReserva;
 
     public ReservacionesKayak() {
         //valor inicial al index del usuario que inicio sesion, como no ha iniciado nadie guardo
@@ -73,7 +74,7 @@ public class ReservacionesKayak implements IReserva {
                 if ((username.equals(usuarios.get(x).getUsername()))
                         && (password.equals(usuarios.get(x).getPassword()))) {
                     indexUser = x;
-                    newUser = new Usuario(username, password, usuarios.get(x).getTipoPlann());
+                    newUser = new Usuario(username, password, usuarios.get(x).getTipoPlan());
                     break;
                 } else {
 
@@ -191,7 +192,7 @@ public class ReservacionesKayak implements IReserva {
      */
 
     public void cambiarTipoUsuario() {
-        if (usuarios.get(indexUser).getTipoPlann()) {
+        if (usuarios.get(indexUser).getTipoPlan()) {
             System.out.println("\nNo es posible cambiar su plan porque usted es un cliente premium!");
         } else {
             usuarios.get(indexUser).setTipoPlan(true);
@@ -217,6 +218,7 @@ public class ReservacionesKayak implements IReserva {
         reservas.add(new Reserva(fechaVuelo, tipoVuelo, cantidadBoletos, aerolinea, username, 0, 0, false, "", 0));
         System.out.println("\n\nReserva creada con éxito!");
         System.out.println(imprimirReserva());
+        flagReserva = true;
     }
 
     
@@ -268,12 +270,8 @@ public class ReservacionesKayak implements IReserva {
             return;
         }
 
-        String fecha = reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername())).getFechaVuelo();
-        String aero = reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername())).getAerolinea();
-        int cant = reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername())).getCantidadBoletos();
-
-        if (fecha.equals("") || aero.equals("") || cant == 0) {
-            System.out.println("\n\nError, debe crear su reservacion para poder realizar la confirmación");
+        if (!flagReserva) {
+            System.out.println("\n\nError, debe crear su reservacion para poder realizar la confirmación!");
         } else {
             reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername()))
                     .setNumeroTarjeta(Long.parseLong(numeroTarjeta));
@@ -296,8 +294,8 @@ public class ReservacionesKayak implements IReserva {
     public String itinerario() {
         String cadena = "";
 
-        cadena = reservas.get(indexUser).toStringReserva();
-        cadena += "\n" + reservas.get(indexUser).toStringItinerario();
+        cadena = reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername())).toStringReserva();
+        cadena += "\n" + reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername())).toStringItinerario();
         return cadena;
     }
 
@@ -307,7 +305,7 @@ public class ReservacionesKayak implements IReserva {
      * Funcion que devuelve la informacion basica de una reserva
      */
     public String imprimirReserva() {
-        return reservas.get(indexUser).toStringReserva();
+        return reservas.get(encontrarReserva(usuarios.get(indexUser).getUsername())).toStringReserva();
     }
 
     

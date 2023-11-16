@@ -34,6 +34,7 @@ public class Archivo {
         String linea = "username,password,tipoPlan";
         escritor.println(linea);
         for (int i = 0; i < usuario.size(); i++) {
+           
             linea = usuario.get(i).getUsername() + "," + usuario.get(i).getPassword() + ","
                     + usuario.get(i).getTipoPlan();
             escritor.println(linea);

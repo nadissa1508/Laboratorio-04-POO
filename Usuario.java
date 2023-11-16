@@ -61,7 +61,7 @@ public class Usuario {
     /** 
      * @return boolean
      */
-    public boolean getTipoPlann() {
+    public boolean getTipoPlan() {
         return tipoPlan;
     }
 
@@ -78,7 +78,7 @@ public class Usuario {
      * Funcion que devuelve un string segun el valor de la variable tipoPlan
      * Esto se usa para cumplir con los requisitos de usar los mismos tipos de datos por la interfaz IReserva
      */
-    public String getTipoPlan() {
+    public String getTipoPlanUser() {
         String c = "";
         if (tipoPlan) { // true -> premium
             c = "premium";

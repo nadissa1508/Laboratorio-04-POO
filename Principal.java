@@ -279,7 +279,7 @@ public class Principal {
 
                     Usuario userTemp = kayak.login(username, password);
                     if (userTemp != null) {
-                        tipoPlan = userTemp.getTipoPlan();
+                        tipoPlan = userTemp.getTipoPlanUser();
                         menu2(kayak, teclado, username);
                     }
 
