@@ -270,7 +270,7 @@ public class Principal {
                         System.out.println("ERROR AL GUARDAR CSV USUARIOS");
                     }
                     try {
-                        kayak.guardarReservacion();
+                        kayak.guardarReserva();
                     } catch (Exception e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();

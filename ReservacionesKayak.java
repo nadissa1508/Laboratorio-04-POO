@@ -34,7 +34,7 @@ public class ReservacionesKayak implements IReserva {
 
         if (file2.exists()) {
             try {
-                leerReservacion();
+                leerReserva();
             } catch (FileNotFoundException e) {
                 System.out.println("\n\nError al cargar información de usuarios!");
             } catch (IOException ioe) {
@@ -209,13 +209,13 @@ public class ReservacionesKayak implements IReserva {
         return reservas.get(indexUser).toStringReserva();
     }
 
-    public void guardarReservacion() throws Exception {
+    public void guardarReserva() throws Exception {
         if (reservas.size() > 0)
             archivoReservas.crearReservaCSV(reservas);
 
     }
 
-    public void leerReservacion() throws FileNotFoundException, IOException {
+    public void leerReserva() throws FileNotFoundException, IOException {
         reservas = archivoReservas.leerReservaCSV();
     }
 

@@ -17,9 +17,9 @@ public interface IReserva {
 
     String itinerario();
 
-    void guardarReservacion() throws Exception;
+    void guardarReserva() throws Exception;
 
-    void leerReservacion() throws FileNotFoundException, IOException;
+    void leerReserva() throws FileNotFoundException, IOException;
 
     void guardarUsuario() throws Exception;
 
